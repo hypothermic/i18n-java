@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/i18n-api" />
             <option value="$PROJECT_DIR$/i18n-core" />
+            <option value="$PROJECT_DIR$/i18n-format-json" />
+            <option value="$PROJECT_DIR$/i18n-provider-filesystem" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />

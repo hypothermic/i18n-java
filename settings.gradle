@@ -1,4 +1,6 @@
 rootProject.name = 'i18n'
 include 'i18n-api'
 include 'i18n-core'
+include 'i18n-provider-filesystem'
+include 'i18n-format-json'
 
