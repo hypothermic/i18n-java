@@ -16,7 +16,7 @@ public class JsonI18nReader implements II18nReader {
     private final Gson gson;
 
     public JsonI18nReader() {
-        this.gson = new GsonBuilder().registerTypeAdapter(II18nResource.class, new I18nResourceSerializer()).create();
+        this.gson = new GsonBuilder().registerTypeAdapter(JsonI18nReader.COLLECTION_TYPE, new JsonI18nResourceSerializer()).create();
     }
 
     public JsonI18nReader(Gson gson) {

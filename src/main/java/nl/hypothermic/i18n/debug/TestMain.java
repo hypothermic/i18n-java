@@ -8,7 +8,5 @@ public class TestMain {
 
     public static void main(String[] args) {
         I18n i18n = new SynchronousI18n(new CachedFileSystemProvider());
-
-        TODO: TEST THE JSON (DE)SERIALIZER.
     }
 }

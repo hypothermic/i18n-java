@@ -16,4 +16,7 @@ dependencies {
 
     compile project(':i18n-core')
     compile project(':i18n-provider-filesystem')
+
+    // DEBUG PLEASE REMOVE BECAUSE I PROBABLY FORGOT TO DO SO
+    compile project(':i18n-format-json')
 }
