@@ -1,0 +1,4 @@
+rootProject.name = 'i18n'
+include 'i18n-api'
+include 'i18n-core'
+
