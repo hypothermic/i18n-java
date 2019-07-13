@@ -111,7 +111,16 @@ public class CachedFileSystemProvider implements II18nProvider {
 
     @Override
     public II18nResource getResource(Locale locale, String key) throws ProviderException {
-        return null;
+        if (!this.initialized) {
+            throw new ProviderException("Provider not initialized");
+        }
+        for (II18nResource entry : cachedEntries) {
+            if (entry.getLocale().equals(locale) &&
+                entry.getKey().equals(key)) {
+                return entry;
+            }
+        }
+        throw new ProviderException("Entry not found");
     }
 
     public String[] getFileExtensions() {
