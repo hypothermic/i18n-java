@@ -30,6 +30,10 @@ public class SynchronousI18n extends I18n {
         super(provider);
     }
 
+    public SynchronousI18n(II18nProvider provider, Locale locale) {
+        super(provider, locale);
+    }
+
     @Override
     public boolean isInitialized() {
         return super.provider.isInitialized();
@@ -38,10 +42,6 @@ public class SynchronousI18n extends I18n {
     @Override
     public void initialize() throws InitializeException {
         super.provider.initialize();
-    }
-
-    public SynchronousI18n(II18nProvider provider, Locale locale) {
-        super(provider, locale);
     }
 
     @Override

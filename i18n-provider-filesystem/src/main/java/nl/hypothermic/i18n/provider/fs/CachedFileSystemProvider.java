@@ -83,6 +83,20 @@ public class CachedFileSystemProvider implements II18nProvider {
         this.fileReadMethod = fileReadMethod;
     }
 
+    /**
+     * Creates a CachedFileSystemProvider with specified paths
+     * and an option to scan recursively (in subdirectories)
+     *
+     * @param paths The paths to scan for resource files.
+     * @param fileExtensions Which file extensions to scan for.
+     * @param recursive Whether to scan recursively (in subdirectories) or not.
+     * @param fileReadMethod Specifies how to read the files from the filesystem.
+     */
+    public CachedFileSystemProvider(File[] paths, String[] fileExtensions, boolean recursive, IFileReadMethod fileReadMethod, II18nFormat fileReadFormat) {
+        this(paths, fileExtensions, recursive, fileReadMethod);
+        this.fileReadFormat = fileReadFormat;
+    }
+
     @Override
     public boolean isInitialized() {
         return initialized;
