@@ -21,7 +21,7 @@ public class I18nBuilder {
     public Class<? extends I18n> implementation;
     public II18nFormat format;
     public II18nProvider provider;
-    public Locale locale;
+    public Locale locale = Locale.ENGLISH;
 
     private final I18nBuilderFormatStage formatStage = new I18nBuilderFormatStage();
     private final I18nBuilderProviderStage providerStage = new I18nBuilderProviderStage();
