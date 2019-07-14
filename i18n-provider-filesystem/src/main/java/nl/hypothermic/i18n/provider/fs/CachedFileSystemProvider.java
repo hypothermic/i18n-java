@@ -41,6 +41,19 @@ public class CachedFileSystemProvider implements II18nProvider {
     }
 
     /**
+     * Creates a CachedFileSystemProvider with specified path.<br>
+     * Subdirectories will not be scanned.
+     *
+     * @param path The paths to scan for resource files.
+     */
+    public CachedFileSystemProvider(File path) {
+        this(new File[]{path},
+                new String[] { DEFAULT_FILE_EXTENSION },
+                false,
+                DEFAULT_READ_METHOD);
+    }
+
+    /**
      * Creates a CachedFileSystemProvider with specified paths.<br>
      * Subdirectories will not be scanned.
      *
@@ -167,5 +180,15 @@ public class CachedFileSystemProvider implements II18nProvider {
 
     public void setFileReadMethod(IFileReadMethod fileReadMethod) {
         this.fileReadMethod = fileReadMethod;
+    }
+
+    @Override
+    public void setFileFormat(II18nFormat format) {
+        this.fileReadFormat = format;
+    }
+
+    @Override
+    public II18nFormat getFileFormat() {
+        return fileReadFormat;
     }
 }

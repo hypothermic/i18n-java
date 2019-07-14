@@ -1,6 +1,8 @@
 package nl.hypothermic.i18n;
 
+import nl.hypothermic.i18n.api.internal.InitializeException;
 import nl.hypothermic.i18n.api.model.I18n;
+import nl.hypothermic.i18n.api.model.II18nFormat;
 import nl.hypothermic.i18n.api.model.II18nProvider;
 
 import java.lang.reflect.InvocationTargetException;
@@ -9,14 +11,19 @@ import java.util.function.Consumer;
 
 public class I18nBuilder {
 
+    /**
+     * An alternative for calling <code>new I18nBuilder()</code>.
+     */
     public static I18nBuilder newBuilder() {
         return new I18nBuilder();
     }
 
     public Class<? extends I18n> implementation;
+    public II18nFormat format;
     public II18nProvider provider;
     public Locale locale;
 
+    private final I18nBuilderFormatStage formatStage = new I18nBuilderFormatStage();
     private final I18nBuilderProviderStage providerStage = new I18nBuilderProviderStage();
     private final I18nBuilderFinalStage finalStage = new I18nBuilderFinalStage();
 
@@ -24,24 +31,44 @@ public class I18nBuilder {
 
     }
 
+    /**
+     * Useful for "Advanced Builder" patterns using a lambda.
+     */
     public I18nBuilderFinalStage with(Consumer<I18nBuilder> builderFunction) {
         builderFunction.accept(this);
         return finalStage;
     }
 
-    public I18nBuilderProviderStage setImplementation(Class<? extends I18n> implementation) {
+    public I18nBuilderFormatStage setImplementation(Class<? extends I18n> implementation) {
         this.implementation = implementation;
-        return providerStage;
+        return formatStage;
     }
 
-    public I18nBuilderProviderStage setImplementation(String implClassName) throws ClassNotFoundException {
+    public I18nBuilderFormatStage setImplementation(String implClassName) throws ClassNotFoundException {
         return this.setImplementation((Class<? extends I18n>) Class.forName(implClassName));
+    }
+
+    public class I18nBuilderFormatStage {
+
+        public I18nBuilderProviderStage setFileFormat(II18nFormat format) {
+            I18nBuilder.this.format = format;
+            return I18nBuilder.this.providerStage;
+        }
+
+        public I18nBuilderProviderStage setFileFormat(Class<? extends II18nFormat> formatClass) throws IllegalAccessException, InstantiationException {
+            return this.setFileFormat(formatClass.newInstance());
+        }
+
+        public I18nBuilderProviderStage setFileFormat(Class<? extends II18nFormat> formatClass, Object... parameters) throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+            return this.setFileFormat(formatClass.getDeclaredConstructor(getTypesForArgs(parameters)).newInstance(parameters));
+        }
     }
 
     public class I18nBuilderProviderStage {
 
         public I18nBuilderFinalStage setProvider(II18nProvider provider) {
             I18nBuilder.this.provider = provider;
+            provider.setFileFormat(format);
             return finalStage;
         }
 
@@ -74,6 +101,21 @@ public class I18nBuilder {
             return this;
         }
 
+        public I18nBuilderFinalStage initializeProvider() throws InitializeException {
+            if (!I18nBuilder.this.provider.isInitialized()) {
+                I18nBuilder.this.provider.initialize();
+            }
+            return this;
+        }
+
+        public I18nBuilderFinalStage initializeProviderAndCatchExceptions() {
+            try {
+                return this.initializeProvider();
+            } catch (InitializeException e) {
+                throw new ExceptionWithinBuilder(e);
+            }
+        }
+
         public I18n build() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
             I18n result = null;
 
@@ -90,7 +132,7 @@ public class I18nBuilder {
             try {
                 return this.build();
             } catch (Exception e) {
-                throw new RuntimeException();
+                throw new ExceptionWithinBuilder(e);
             }
         }
     }

@@ -8,4 +8,8 @@ public interface II18nProvider extends IInitializable {
 
     II18nResource getResource(Locale locale, String key) throws ProviderException;
 
+    void setFileFormat(II18nFormat format);
+
+    II18nFormat getFileFormat();
+
 }
