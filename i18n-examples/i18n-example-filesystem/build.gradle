@@ -17,5 +17,6 @@ dependencies {
     compile project(':i18n-api')
     compile project(':i18n-core')
 
+    compile project(':i18n-format-json')
     compile project(':i18n-provider-filesystem')
 }
