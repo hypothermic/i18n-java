@@ -78,9 +78,9 @@ public class I18nBuilder {
             I18n result = null;
 
             if (locale != null) {
-                implementation.getDeclaredConstructor(II18nProvider.class, Locale.class).newInstance(provider, locale);
+                result = implementation.getDeclaredConstructor(II18nProvider.class, Locale.class).newInstance(provider, locale);
             } else {
-                implementation.getDeclaredConstructor(II18nProvider.class).newInstance(provider);
+                result = implementation.getDeclaredConstructor(II18nProvider.class).newInstance(provider);
             }
 
             return result;
