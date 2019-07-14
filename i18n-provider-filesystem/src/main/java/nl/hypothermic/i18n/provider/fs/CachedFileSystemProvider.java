@@ -1,5 +1,6 @@
 package nl.hypothermic.i18n.provider.fs;
 
+import nl.hypothermic.i18n.api.exception.ExceptionInInitialize;
 import nl.hypothermic.i18n.api.internal.InitializeException;
 import nl.hypothermic.i18n.api.model.II18nFormat;
 import nl.hypothermic.i18n.api.model.II18nProvider;
@@ -129,7 +130,7 @@ public class CachedFileSystemProvider implements II18nProvider {
             try {
                 cachedEntries.addAll(fileReadFormat.format(fileReadMethod.readFile(file)));
             } catch (IOException e) {
-                throw new ExceptionInInitializerException(e);
+                throw new ExceptionInInitialize(e);
             }
         }
 

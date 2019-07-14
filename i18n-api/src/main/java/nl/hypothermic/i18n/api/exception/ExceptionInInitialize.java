@@ -1,4 +1,4 @@
-package nl.hypothermic.i18n.provider.fs;
+package nl.hypothermic.i18n.api.exception;
 
 import nl.hypothermic.i18n.api.internal.InitializeException;
 
@@ -7,11 +7,11 @@ import nl.hypothermic.i18n.api.internal.InitializeException;
  * <br />
  * Please check the wrapped exception for more information about the error.
  */
-public class ExceptionInInitializerException extends InitializeException {
+public class ExceptionInInitialize extends InitializeException {
 
     private final Exception wrappedException;
 
-    public ExceptionInInitializerException(Exception wrappedException) {
+    public ExceptionInInitialize(Exception wrappedException) {
         this.wrappedException = wrappedException;
     }
 
