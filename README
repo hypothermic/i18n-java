@@ -15,7 +15,7 @@ and core implementations depending on your project's specific needs.
 
 - Filesystem (any privileged folder on the operating system)
 - Within JAR (a resource within the the application's JAR file)*
-- HTTP/HTTPS (from a location on a webserver)*
+- HTTP/HTTPS (from a location on a webserver)
 - FTP/SFTP/SCP (only if the location can be mounted)
 
 =============================== Getting started ===============================

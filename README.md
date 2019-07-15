@@ -14,7 +14,7 @@ core implementations depending on your specific needs.
 ### File Providers (where it can load from):
 - Filesystem (any privileged folder on the operating system)
 - Within JAR (a resource within the the application's JAR file)*
-- HTTP/HTTPS (from a location on a webserver)*
+- HTTP/HTTPS (any location from a URL)
 - FTP/SFTP/SCP (only if the location can be mounted)
 
 ## Getting started
