@@ -6,4 +6,6 @@ include 'i18n-format-json'
 include 'i18n-examples:i18n-example-filesystem'
 findProject(':i18n-examples:i18n-example-filesystem')?.name = 'i18n-example-filesystem'
 include 'i18n-provider-http'
+include 'i18n-examples:i18n-example-http'
+findProject(':i18n-examples:i18n-example-http')?.name = 'i18n-example-http'
 
