@@ -18,3 +18,14 @@ dependencies {
 
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 }
+
+task fatJar(type: Jar) {
+    baseName = rootProject.name + '-provider-filesystem'
+    manifest {
+        attributes 'Implementation-Title': baseName,
+                   'Implementation-Version': version,
+                   'Implementation-Vendor': 'Hypothermic, Inc.'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

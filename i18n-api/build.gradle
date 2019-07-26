@@ -14,3 +14,14 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+task fatJar(type: Jar) {
+    baseName = rootProject.name + '-api'
+    manifest {
+        attributes 'Implementation-Title': baseName,
+                   'Implementation-Version': version,
+                   'Implementation-Vendor': 'Hypothermic, Inc.'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

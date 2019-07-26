@@ -18,3 +18,14 @@ dependencies {
 
     compile ('org.reflections:reflections:0.9.11')
 }
+
+task fatJar(type: Jar) {
+    baseName = rootProject.name + '-core'
+    manifest {
+        attributes 'Implementation-Title': baseName,
+                   'Implementation-Version': version,
+                   'Implementation-Vendor': 'Hypothermic, Inc.'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
